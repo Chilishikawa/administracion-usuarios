@@ -35,5 +35,7 @@ export class ClienteService {
     return this.http.put<any>(`${this.apiUrl}/${usuario.id}`, usuario);
   }
 
-
+  agregarUsuario(usuario: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/agregar`, usuario);
+  }
 }

@@ -30,3 +30,12 @@ button.btn-icon {
     cursor: not-allowed;
     background: #333333;
   }
+
+  .titulo {
+    margin: 5rem;
+    font-weight: bold;
+  }
+
+  .cabecera {
+    background: crimson !important;
+  }

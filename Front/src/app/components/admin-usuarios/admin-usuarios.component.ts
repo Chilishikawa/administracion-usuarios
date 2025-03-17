@@ -76,13 +76,27 @@ export class AdminUsuariosComponent implements OnInit {
   
   // Método para agregar el nuevo usuario
   agregarUsuario() {
-    // Lógica para agregar usuario, por ejemplo:
     if (this.nuevoUsuario.nombre && this.nuevoUsuario.email) {
-      this.clientes.push({ ...this.nuevoUsuario });  // Añadir el nuevo usuario a la lista
-      // Limpiar el formulario después de agregar
-      this.nuevoUsuario = { nombre: '', fecha_nacimiento: '', email: '', direccion: '' };
-      // Cerrar el modal
-      document.getElementById('exampleModal2')?.click();
+      this.clienteService.agregarUsuario(this.nuevoUsuario).subscribe(
+        () => {
+          this.getClientes(); // Recargar la lista después de agregar
+          this.nuevoUsuario = { nombre: '', fecha_nacimiento: '', email: '', direccion: '' }; // Limpiar formulario
+          this.cerrarModal();
+        },
+        (error) => {
+          console.error('Error al agregar usuario:', error);
+        }
+      );
+    }
+  }
+
+  cerrarModal() {
+    const modal = document.getElementById('exampleModal2') as HTMLElement;
+    if (modal) {
+      const modalCloseButton = modal.querySelector('.btn-close') as HTMLButtonElement;
+      if (modalCloseButton) {
+        modalCloseButton.click();
+      }
     }
   }
 

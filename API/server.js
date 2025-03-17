@@ -9,6 +9,8 @@ const app = express();
 // Habilita CORS para todas las solicitudes
 app.use(cors());
 
+app.use(express.json());
+
 // Define un puerto en el que se ejecutará el servidor
 const PORT = process.env.PORT || 3000;
 
@@ -114,18 +116,25 @@ app.delete('/api/usuarios/:id', (req, res) => {
   });
 });
 
-// Ruta para agregar un nuevo usuario
-app.post('/api/usuarios', express.json(), (req, res) => {
+// Ruta para agregar un usuario
+app.post('/api/usuarios/agregar', (req, res) => {
   const { nombre, email, fecha_nacimiento, direccion } = req.body;
-  const query = 'INSERT INTO usuarios (nombre, email, fecha_nacimiento, direccion) VALUES (?, ?, ?, ?)';
 
-  db.run(query, [nombre, email, fecha_nacimiento, direccion], function (err) {
+  if (!nombre || !email) {
+    return res.status(400).json({ mensaje: 'Nombre y email son requeridos' });
+  }
+
+  const sql = `INSERT INTO usuarios (nombre, email, fecha_nacimiento, direccion) VALUES (?, ?, ?, ?)`;
+  const params = [nombre, email, fecha_nacimiento || null, direccion || null];
+
+  db.run(sql, params, function (err) {
     if (err) {
-      return res.status(500).json({ error: err.message });
+      return res.status(500).json({ mensaje: 'Error al agregar el usuario', error: err.message });
     }
-    res.status(201).json({ id: this.lastID, nombre, email, fecha_nacimiento, direccion });
+    res.status(201).json({ mensaje: 'Usuario agregado correctamente', id: this.lastID });
   });
 });
+
 
 // Inicia el servidor en el puerto especificado
 app.listen(PORT, () => {
