@@ -1,0 +1,119 @@
+<div class="container">
+    <h1 class="center titulo">Administración de Usuarios</h1>
+
+    <table border="1" class="margin-vertical">
+      <thead>
+        <tr>
+          <button class="btn-icon" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            <i class="fas fa-plus"></i> Agregar Usuario
+          </button>
+        </tr>
+        <tr>
+          <th>Nombre Completo</th>
+          <th>Fecha Nacimiento</th>
+          <th>Email</th>
+          <th>Dirección Principal</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>{{ cliente.nombre }}</td>
+          <td>{{ cliente.fecha_nacimiento }}</td>
+          <td>{{ cliente.email }}</td>
+          <td>{{ cliente.direccion }}</td>
+          <td>
+            <button class="btn-icon" (click)="eliminarCliente(cliente.id)">
+              <i class="fas fa-trash"></i> Eliminar
+            </button>
+          </td>
+          <td>
+             <button class="btn-icon" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)='cargarUsuarioPorId(cliente.id)'> 
+              <i class="fas fa-edit"></i> Editar
+            </button>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+      <span>Página {{ currentPage }}</span>
+      <button (click)="nextPage()">Siguiente</button>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Usuario</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Formulario para editar usuario -->
+        <form #usuarioForm="ngForm" (ngSubmit)="guardarCambios(usuarioForm)">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre Completo</label>
+            <input type="text" class="form-control" id="nombre" required [(ngModel)]="usuario.nombre" name="nombre">
+          </div>
+          <div class="mb-3">
+            <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+            <input type="date" class="form-control" id="fechaNacimiento" required [(ngModel)]="usuario.fecha_nacimiento" name="fecha_nacimiento">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" required [(ngModel)]="usuario.email" name="email">
+          </div>
+          <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección Principal</label>
+            <input type="text" class="form-control" id="direccion" required [(ngModel)]="usuario.direccion" name="direccion">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="guardarCambios(usuarioForm)">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Usuario</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #usuarioForm="ngForm">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre Completo</label>
+            <input type="text" class="form-control" id="nombre" required [(ngModel)]="nuevoUsuario.nombre" name="nombre">
+          </div>
+          <div class="mb-3">
+            <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+            <input type="date" class="form-control" id="fechaNacimiento" required [(ngModel)]="nuevoUsuario.fecha_nacimiento" name="fecha_nacimiento">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" required [(ngModel)]="nuevoUsuario.email" name="email">
+          </div>
+          <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección Principal</label>
+            <input type="text" class="form-control" id="direccion" required [(ngModel)]="nuevoUsuario.direccion" name="direccion">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="agregarUsuario()">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>

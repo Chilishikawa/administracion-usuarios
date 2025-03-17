@@ -1,0 +1,62 @@
+<div>
+    <h1 class="center titulo">Lista de Clientes</h1>
+
+    <div class="center margin-vertical">
+        <button class="margin-horizontal button-red" (click)="obtenerClientesSP()">
+            Listar clientes por SP
+          </button>
+    
+          <button class="margin-horizontal button-green" (click)="obtenerClientesLINQ()">
+            Listar clientes por LINQ
+          </button>
+    </div>
+  
+    <table border="1" class="margin-vertical">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Dirección</th>
+          <th>Teléfono</th>
+          <th>País</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>{{ cliente.id }}</td>
+          <td>{{ cliente.nombre }}</td>
+          <td>{{ cliente.direccion }}</td>
+          <td>{{ cliente.telefono | telefono}}</td>
+          <td>{{ cliente.pais }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div class="center">
+        <div *ngIf="metodo == 'SP'">
+            <button class="margin-horizontal" (click)="cambiarPaginaSP(paginaActual - 1)" [disabled]="paginaActual === 1">
+              Anterior
+            </button>
+            
+            <span class="margin-horizontal">Página {{ paginaActual }} de {{ totalPaginas }}</span>
+            
+            <button class="margin-horizontal" (click)="cambiarPaginaSP(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">
+              Siguiente
+            </button>
+          </div>
+      
+          <div *ngIf="metodo == 'LINQ'">
+              <button class="margin-horizontal" (click)="cambiarPaginaLINQ(paginaActualL - 1)" [disabled]="paginaActualL === 1">
+                Anterior
+              </button>
+              
+              <span class="margin-horizontal">Página {{ paginaActualL }} de {{ totalPaginasL }}</span>
+              
+              <button class="margin-horizontal" (click)="cambiarPaginaLINQ(paginaActualL + 1)" [disabled]="paginaActualL === totalPaginasL">
+                Siguiente
+              </button>
+            </div>
+        </div>
+    </div>
+    
+  

@@ -1,0 +1,32 @@
+/* Estilo para los botones de icono */
+button.btn-icon {
+    background: transparent;
+    border: none;
+    color: #333;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  button.btn-icon i {
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+  }
+  
+  button.btn-icon:hover {
+    background: linear-gradient(145deg, #888888, #555555);
+    transform: scale(1.05);
+  }
+  
+  button.btn-icon:focus {
+    outline: none;
+  }
+  
+  /* Efecto de desactivación en el botón */
+  button.btn-icon:disabled {
+    color: #888888;
+    cursor: not-allowed;
+    background: #333333;
+  }
